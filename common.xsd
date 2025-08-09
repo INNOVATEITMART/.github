@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" version="1.0" targetNamespace="http://www.ericsson.com/em/djs/journey/v1_0/common" xmlns:op="http://www.ericsson.com/em/djs/journey/v1_0/common" xmlns:tns="http://www.ericsson.com/em/djs/journey/v1_0/common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="journeydefinition">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="instructions" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="question" type="tns:question"/>
+                <xs:element name="response" type="tns:response"/>
+                <xs:element name="argument" type="tns:argument"/>
+                <xs:element name="options" type="tns:options"/>
+                <xs:element name="dynamicarguments" type="tns:dynamicarguments"/>
+                <xs:element name="dynamicoptions" type="tns:dynamicoptions"/>
+                <xs:element name="matches" type="tns:matches"/>
+                <xs:element name="exists" type="tns:exists"/>
+                <xs:element name="switch" type="tns:switch"/>
+                <xs:element name="responsematching" type="tns:responsematching"/>
+              </xs:choice>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="argument">
+    <xs:sequence>
+      <xs:element name="key" type="tns:argumentkey"/>
+      <xs:element name="value" type="tns:textformat"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="argumentkey">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="textformat">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="case">
+    <xs:sequence>
+      <xs:element name="value" type="tns:textformat"/>
+      <xs:element name="instructions" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="question" type="tns:question"/>
+              <xs:element name="response" type="tns:response"/>
+              <xs:element name="argument" type="tns:argument"/>
+              <xs:element name="options" type="tns:options"/>
+              <xs:element name="dynamicarguments" type="tns:dynamicarguments"/>
+              <xs:element name="dynamicoptions" type="tns:dynamicoptions"/>
+              <xs:element name="matches" type="tns:matches"/>
+              <xs:element name="exists" type="tns:exists"/>
+              <xs:element name="switch" type="tns:switch"/>
+              <xs:element name="responsematching" type="tns:responsematching"/>
+            </xs:choice>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="question">
+    <xs:sequence>
+      <xs:element name="key" type="tns:argumentkey"/>
+      <xs:element name="retries" type="xs:long" minOccurs="0"/>
+      <xs:element name="confidential" type="xs:boolean"/>
+      <xs:element name="display" type="tns:display"/>
+      <xs:element name="validation" type="tns:validation" minOccurs="0"/>
+      <xs:element name="transform" type="tns:transform" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="display">
+    <xs:sequence>
+      <xs:element name="texts" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="text" type="tns:translation" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="translation">
+    <xs:sequence>
+      <xs:element name="languagecode" type="tns:languagecode"/>
+      <xs:element name="textmessage" type="tns:textformat"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="languagecode">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="validation">
+    <xs:sequence>
+      <xs:element name="pattern" type="tns:regularexpression"/>
+      <xs:element name="errormessage" type="tns:errormessage"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="regularexpression">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="errormessage">
+    <xs:sequence>
+      <xs:element name="texts" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="text" type="tns:translation" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="transform">
+    <xs:sequence>
+      <xs:element name="format" type="tns:textformat"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="response">
+    <xs:sequence>
+      <xs:element name="texts">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="text" type="tns:translation" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="options">
+    <xs:sequence>
+      <xs:element name="header" type="tns:display" minOccurs="0"/>
+      <xs:element name="footer" type="tns:display" minOccurs="0"/>
+      <xs:element name="optionslist" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="option" type="tns:option" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="option">
+    <xs:sequence>
+      <xs:element name="display" type="tns:display"/>
+      <xs:element name="instructions" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="question" type="tns:question"/>
+              <xs:element name="response" type="tns:response"/>
+              <xs:element name="argument" type="tns:argument"/>
+              <xs:element name="options" type="tns:options"/>
+              <xs:element name="dynamicarguments" type="tns:dynamicarguments"/>
+              <xs:element name="dynamicoptions" type="tns:dynamicoptions"/>
+              <xs:element name="matches" type="tns:matches"/>
+              <xs:element name="exists" type="tns:exists"/>
+              <xs:element name="switch" type="tns:switch"/>
+              <xs:element name="responsematching" type="tns:responsematching"/>
+            </xs:choice>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="dynamicarguments">
+    <xs:sequence>
+      <xs:element name="url" type="tns:uniformresourcelocator"/>
+      <xs:element name="arguments">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="argument" type="tns:argument" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="uniformresourcelocator">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="dynamicoptions">
+    <xs:sequence>
+      <xs:element name="header" type="tns:display" minOccurs="0"/>
+      <xs:element name="footer" type="tns:display" minOccurs="0"/>
+      <xs:element name="url" type="tns:uniformresourcelocator"/>
+      <xs:element name="display" type="tns:display"/>
+      <xs:element name="arguments">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="argument" type="tns:argument" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="defaultoption" type="tns:option" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="matches">
+    <xs:sequence>
+      <xs:element name="key" type="tns:argumentkey"/>
+      <xs:element name="pattern" type="tns:regularexpression"/>
+      <xs:element name="yes" type="tns:instructionsdefinition"/>
+      <xs:element name="no" type="tns:instructionsdefinition"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="instructionsdefinition">
+    <xs:sequence>
+      <xs:element name="instructions" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="question" type="tns:question"/>
+              <xs:element name="response" type="tns:response"/>
+              <xs:element name="argument" type="tns:argument"/>
+              <xs:element name="options" type="tns:options"/>
+              <xs:element name="dynamicarguments" type="tns:dynamicarguments"/>
+              <xs:element name="dynamicoptions" type="tns:dynamicoptions"/>
+              <xs:element name="matches" type="tns:matches"/>
+              <xs:element name="exists" type="tns:exists"/>
+              <xs:element name="switch" type="tns:switch"/>
+              <xs:element name="responsematching" type="tns:responsematching"/>
+            </xs:choice>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="exists">
+    <xs:sequence>
+      <xs:element name="key" type="tns:argumentkey"/>
+      <xs:element name="yes" type="tns:instructionsdefinition"/>
+      <xs:element name="no" type="tns:instructionsdefinition"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="switch">
+    <xs:sequence>
+      <xs:element name="key" type="tns:argumentkey"/>
+      <xs:element name="cases" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="case" type="tns:case" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="defaultcase" type="tns:instructionsdefinition" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="responsematching">
+    <xs:sequence>
+      <xs:element name="responses" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="tns:response" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="defaultresponse" type="tns:response"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="confidentialArgumentValue">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="identity">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="journeycategory">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="journeydescription">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="journeydetails">
+    <xs:sequence>
+      <xs:element name="journeyidentifier" type="tns:journeyidentifier"/>
+      <xs:element name="providername" type="tns:providername"/>
+      <xs:element name="provideridentity" type="tns:identity"/>
+      <xs:element name="category" type="tns:journeycategory"/>
+      <xs:element name="status" type="tns:journeystatus"/>
+      <xs:element name="description" type="tns:journeydescription" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="journeyidentifier">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="providername">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="journeyinput">
+    <xs:sequence>
+      <xs:element name="argumentkey" type="tns:argumentkey"/>
+      <xs:element name="argumentvalue" type="tns:usertext" minOccurs="0"/>
+      <xs:element name="confidentialargumentvalue" type="tns:confidentialArgumentValue" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="usertext">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="journeyoutput">
+    <xs:sequence>
+      <xs:element name="question" type="tns:questionoutput" minOccurs="0"/>
+      <xs:element name="response" type="tns:usertext" minOccurs="0"/>
+      <xs:element name="options" type="tns:optionsoutput" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="questionoutput">
+    <xs:sequence>
+      <xs:element name="key" type="tns:argumentkey"/>
+      <xs:element name="question" type="tns:usertext"/>
+      <xs:element name="validationpattern" type="tns:regularexpression" minOccurs="0"/>
+      <xs:element name="errormessage" type="tns:usertext" minOccurs="0"/>
+      <xs:element name="isconfidential" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="optionsoutput">
+    <xs:sequence>
+      <xs:element name="header" type="tns:usertext" minOccurs="0"/>
+      <xs:element name="footer" type="tns:usertext" minOccurs="0"/>
+      <xs:element name="options">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="option" type="tns:userargument" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userargument">
+    <xs:sequence>
+      <xs:element name="key" type="tns:argumentkey"/>
+      <xs:element name="value" type="tns:usertext"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="listoffset">
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="listpagesize">
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="sessionidentifier">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="journeystatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INITIAL"/>
+      <xs:enumeration value="PUBLISHED"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="sessionstatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CONTINUE"/>
+      <xs:enumeration value="DONE"/>
+      <xs:enumeration value="INPUT"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

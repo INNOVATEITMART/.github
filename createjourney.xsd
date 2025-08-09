@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://www.ericsson.com/em/djs/journey/v1_0/frontend/provider" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.ericsson.com/em/djs/journey/v1_0/common">
+
+  <xs:import namespace="http://www.ericsson.com/em/djs/journey/v1_0/common" schemaLocation="common.xsd"/>
+
+  <xs:element name="createjourneyrequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="category" type="ns1:journeycategory"/>
+        <xs:element name="description" type="ns1:journeydescription" minOccurs="0"/>
+        <xs:element name="journeydefinition">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="instructions" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                      <xs:element name="question" type="ns1:question"/>
+                      <xs:element name="response" type="ns1:response"/>
+                      <xs:element name="argument" type="ns1:argument"/>
+                      <xs:element name="options" type="ns1:options"/>
+                      <xs:element name="dynamicarguments" type="ns1:dynamicarguments"/>
+                      <xs:element name="dynamicoptions" type="ns1:dynamicoptions"/>
+                      <xs:element name="matches" type="ns1:matches"/>
+                      <xs:element name="exists" type="ns1:exists"/>
+                      <xs:element name="switch" type="ns1:switch"/>
+                      <xs:element name="responsematching" type="ns1:responsematching"/>
+                    </xs:choice>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="createjourneyresponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="journey" type="ns1:journeydetails"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+
